@@ -1,0 +1,119 @@
+---
+title: "Machine_Hack_BookPrice"
+author: "Amardeep Singh"
+date: "October 2, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+```
+```{r}
+books<-read_excel("C://Users//Amardeep//Downloads//Participants_Data-20190926T094854Z-001//Participants_Data//Data_Train.xlsx",col_names = TRUE)
+```
+```{r}
+write.xlsx(new_data1,file = "C://Users//Amardeep//Downloads//Participants_Data-20190926T094854Z-001//Participants_Data.sentiment.xlsx")
+```
+```{r}
+new_data1<-cbind(books,rw1_SA)
+```
+```{r}
+new_data$stnt <- as.numeric(as.character(new_data$stnt))
+
+```
+```{r}
+compareToResponse(docs_story,section)
+```
+
+```{r}
+model1<-lm(new_data$stnt~new_data$WordCount+new_data$SentimentGI+new_data$SentimentHE+new_data$SentimentHE+new_data$SentimentQDAP+new_data$SentimentLM)
+summary(model1)$coefficients
+```
+```{r}
+
+```
+```{r}
+bk_train<-as.matrix(books)
+```
+```{r}
+rw1<-bk_train[1:6237,6:6]
+```
+```{r}
+library(SentimentAnalysis)
+SentimentAnalysis::analyzeSentiment(rw[1])
+```
+```{r}
+rw1 <- Corpus(VectorSource(rw1[1:6237]))
+```
+```{r}
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+rw1 <- tm_map(rw1, toSpace, "/")
+rw1 <- tm_map(rw1, toSpace, "@")
+rw1 <- tm_map(rw1, toSpace, "\\|")
+```
+```{r}
+# Convert the text to lower case
+# Remove numbers
+rw1 <- tm_map(rw1, removeNumbers)
+# Remove english common stopwords
+rw1 <- tm_map(rw1, removeWords, stopwords("english"))
+# Remove your own stop word
+# specify your stopwords as a character vector
+rw1<- tm_map(rw1, removeWords, c("blabla1", "blabla2")) 
+# Remove punctuations
+rw1 <- tm_map(rw1, removePunctuation)
+# Eliminate extra white spaces
+rw1 <- tm_map(rw1, stripWhitespace)
+# Text stemming
+rw1 <- tm_map(rw1, stemDocument)
+```
+```{r}
+rw12 <- na.omit(rw1)
+```
+```{r}
+rw1_SA<-SentimentAnalysis::analyzeSentiment(rw1)
+```
+```{r}
+train_processed<-cbind(docs_SA,section)
+```
+```{r}
+write.csv(train_processed,"C://Users//Amardeep//Desktop//PLASTICS DATASETS//train_processed.csv")
+```
+```{r}
+type.convert(section)
+```
+```{r}
+mod1<-lm(sntmt~SA$WordCount+SA$SentimentGI)
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+dtm <- TermDocumentMatrix(docs_story[1:5351])
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+head(d, 10)
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
